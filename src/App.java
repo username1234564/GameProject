@@ -159,3 +159,5 @@ public class App extends JPanel implements KeyListener, MouseListener {
 //v / v.length = 1
 //that formula * barrel = new vector
 //player pos + new vector = cannon end pos
+
+//some change
