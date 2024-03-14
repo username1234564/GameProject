@@ -1,11 +1,14 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.text.Position;
+
 public class Player implements KeyListener{  
     Vector position;
     Vector direction = new Vector(0, 0);
     double speed = 200; //200 pixels per second, change later
     Vector cannonTip;
+    int radius = 25;
     
 
     public Player(Vector position){
@@ -14,6 +17,11 @@ public class Player implements KeyListener{
 
     public void update(double delta){
         position = position.add(direction.normalized().scale(delta).scale(speed));
+        position.x = Math.min(position.x, App.windowWidth - radius); //clamps for bounderies 
+        position.x = Math.max(position.x, radius);
+        position.y = Math.min(position.y, App.windowHeight - radius - 30);
+        position.y = Math.max(position.y, radius);
+
     }
 
 

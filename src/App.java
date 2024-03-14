@@ -77,7 +77,7 @@ public class App extends JPanel implements MouseListener {
         }
     }
 
-    public Boolean isOnScreen(Vector position, double leniency){
+    public static Boolean isOnScreen(Vector position, double leniency){
         if(position.x + leniency < 0 || position.x - leniency > windowWidth || position.y + leniency < 0 || position.y - leniency > windowHeight) //lenincy is extra space to make sure bullet is gone
             return false;
         return true;
