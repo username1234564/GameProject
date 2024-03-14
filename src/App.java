@@ -12,6 +12,8 @@ public class App extends JPanel implements MouseListener {
     static Color Red = new Color(255, 0, 0); 
     static Color Gray = new Color(100, 100, 100); 
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+    static int windowWidth = 1280;
+    static int windowHeight = 720;
 
     public App() {
         addKeyListener(player);
@@ -45,8 +47,11 @@ public class App extends JPanel implements MouseListener {
 
     public void update(double delta) {
         player.update(delta);
-        for (int i = 0; i<bullets.size(); i++){ //updrates all bullets
+        for (int i = bullets.size()-1; i>=0; i--){ //updrates all bullets loop backwards to change something before it
             bullets.get(i).update(delta);
+            if(!isOnScreen(bullets.get(i).position, 50)){
+                bullets.remove(i);
+            }
         }
         repaint();
     }
@@ -55,7 +60,7 @@ public class App extends JPanel implements MouseListener {
     public static void main(String[] args) {
         App app = new App();
         JFrame frame = new JFrame(); //createsaframe
-        frame.setSize(1080, 720); //how big the window be
+        frame.setSize(windowWidth, windowHeight); //how big the window be
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //stops the code when you close the window;
         frame.add(app);
         
@@ -70,6 +75,12 @@ public class App extends JPanel implements MouseListener {
                 System.out.println(e); //prints the error in the unlickly case there is one
             }
         }
+    }
+
+    public Boolean isOnScreen(Vector position, double leniency){
+        if(position.x + leniency < 0 || position.x - leniency > windowWidth || position.y + leniency < 0 || position.y - leniency > windowHeight) //lenincy is extra space to make sure bullet is gone
+            return false;
+        return true;
     }
 
 
